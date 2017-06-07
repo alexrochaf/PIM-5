@@ -25,3 +25,7 @@ input.uppercase {
 .has-feedback label ~ .form-control-feedback {
     margin-right: .8em;
 }
+
+.dataTables_length{
+    text-align: end;
+}
