@@ -1,0 +1,34 @@
+﻿@{
+    Page.Title = "The Host - Hospeds";
+    Layout = "../../_Layout.cshtml";
+
+    var conexao = WebMatrix.Data.Database.Open("DB");
+
+    var hospedes = conexao.Query("select * from HOSPEDES");
+
+    conexao.Close();
+
+}
+<h1>Hospedes</h1>
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Contato</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var h in hospedes)
+            {
+                <tr>
+                    <td>@h.NOME</td>
+                    <td>@h.CPF</td>
+                    <td>@h.TELEFONE</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>

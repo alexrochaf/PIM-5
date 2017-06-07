@@ -1,0 +1,15 @@
+﻿@{
+
+    var conexao = WebMatrix.Data.Database.Open("DB");
+
+    var uf_estado = Request.QueryString["uf"];
+
+    var estado = conexao.QuerySingle("select * from estado where Uf = @0", uf_estado);
+
+    var cidades = conexao.Query("select * from Municipio where Uf = @0", uf_estado);
+
+    conexao.Close();
+
+    Response.Write(Json.Encode(cidades));
+
+}

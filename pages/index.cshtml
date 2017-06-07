@@ -1,0 +1,28 @@
+﻿@{
+    Page.Title = "TheHost - Inicio";
+    Layout = "../_Layout.cshtml";
+
+    var conexao = WebMatrix.Data.Database.Open("DB");
+
+    var quartos = conexao.Query("select *, Descricao from QUARTOS q inner join TipoQuarto t on t.id = q.tipo");
+
+    conexao.Close();
+
+}
+<h1>Index</h1>
+@{
+    foreach (var item in quartos)
+    {
+        if (item.estatus == 0)
+        {
+            <div class="col-md-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">@item.Estatus</div>
+                    <div class="panel-body">
+                        <i class="fa fa-fw fa-star"></i> @item.Descricao
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

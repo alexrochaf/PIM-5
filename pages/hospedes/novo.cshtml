@@ -1,0 +1,136 @@
+﻿@{
+    //Validações
+    Validation.RequireField("nome", "O Nome do veículo de ser informado!");
+
+    //Informações da Página
+    Page.Title = "The Host - Novo Hospede";
+    Layout = "../../_Layout.cshtml";
+
+
+    //var conexao = WebMatrix.Data.Database.Open("DB");
+    //conexao.Close();
+
+    var conexao = WebMatrix.Data.Database.Open("DB");
+
+    var estados = conexao.Query("select * from Estado");
+
+    conexao.Close();
+
+    if (IsPost)
+    {
+
+        Response.Redirect("~/pages/hospedes");
+    }
+
+}
+<form name="form1" data-toggle="validator" role="form" method="post" action="" enctype="multipart/form-data">
+    <div class="panel panel-default">
+        <div class="panel-heading">Dados Pessoais:</div>
+        <div class="panel-body">
+            <div class="form-group has-feedback col-md-3">
+                <label for="inputNome" class="control-label">Nome</label>
+                <input name="nome" type="text" class="form-control uppercase" id="inputNome" placeholder="" data-minlength="9" required>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback col-md-3">
+                <label for="inputSobrenome" class="control-label">Sobrenome</label>
+                <input name="sobrenome" type="text" class="form-control uppercase" id="inputSobrenome" placeholder="" data-minlength="9" required>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback col-md-4">
+                <label for="inputEmail" class="control-label">Email</label>
+                <input type="email" class="form-control" id="inputEmail" placeholder="exemplo@email.com" required>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback col-md-2">
+                <label for="dataNascimento" class="control-label">Data de Nascimento</label>
+                <div class="input-group input-append date">
+                    <input type="text" class="form-control" value="" name="dataNascimento" id="dataNascimento" required/>
+                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Endereço:</div>
+        <div class="panel-body">
+            <div class="form-group has-feedback col-md-4">
+                <label for="cep">Cep</label>
+                <input type="text" class="form-control" name="cep" id="cep" maxlength="10" onKeyPress="MascaraCep(form1.cep);" required />
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback col-md-4">
+                <label for="estado">Estado</label>
+                <select name="estado" data-live-search="true" id="estado" class="form-control selectpicker" data-error="Selecione um Estado." required>
+                    <option></option>
+                    @foreach (var i in estados)
+                    {
+                        <option data-tokens="@i.nome" value="@i.uf">@i.nome</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group has-feedback col-md-4">
+                <label for="cidade">Cidade</label>
+                <select id="cidade" data-live-search="true" name="cidade" class="selectpicker form-control" required></select>
+            </div>
+            <div class="form-group has-feedback col-md-4">
+                <label for="rua">Rua</label>
+                <input type="text" class="form-control" name="rua" id="rua" required />
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback col-md-4">
+                <label for="numero">Nº</label>
+                <input type="text" class="form-control" name="numero" id="numero" required />
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback col-md-4">
+                <label for="bairro">Bairro</label>
+                <input type="text" class="form-control" name="bairro" id="bairro" required />
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-md-12">
+        <button type="submit" class="btn btn-success">Salvar</button>
+        <a href="~/pages/hospedes" class="btn btn-danger">Cancelar</a>
+    </div>
+</form>
+<script>
+    $('.date').datepicker({
+        language: "pt-BR",
+        autoclose: true,
+        });
+</script>
+<script>
+    document.querySelector('#estado').addEventListener('change', (event) => {
+        var select = event.target;
+
+        var buscaCidades = "/Ajax/cidades?uf=" + select.options[select.selectedIndex].value
+
+        var cidades = [];
+
+        var selectCidades = document.querySelector("#cidade");
+
+        var load = $('.form-control');
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                cidades = JSON.parse(this.responseText);
+                var x = document.querySelector("#cidade").options
+                x.length = 0
+
+                for (var i = 0; i < cidades.length; i++) {
+                    var novaOpt = document.createElement("option");
+                    novaOpt.value = cidades[i].Id;
+                    novaOpt.textContent = cidades[i].Nome;
+                    selectCidades.appendChild(novaOpt);
+                }
+
+                load.selectpicker('refresh');
+            }
+        };
+        xmlhttp.open("GET", buscaCidades, true);
+        xmlhttp.send();
+    })
+</script>
