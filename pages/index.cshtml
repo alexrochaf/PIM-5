@@ -4,7 +4,7 @@
 
     var conexao = WebMatrix.Data.Database.Open("DB");
 
-    var quartos = conexao.Query("select *, Descricao from QUARTOS q inner join TipoQuarto t on t.id = q.tipo");
+    var quartos = conexao.Query("select *, Descricao from QUARTO q inner join TipoQuarto t on t.id = q.tipo");
 
     conexao.Close();
 
