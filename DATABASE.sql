@@ -8,6 +8,8 @@ create table Hospede (
     Rua varchar(255) NOT NULL,
 	Numero INT NOT NULL,
 	Complemento VARCHAR(255) NULL,
+	Cep VARCHAR(255) NOT NULL,
+	Bairro VARCHAR(255) NOT NULL,
 	Estado_Id INT FOREIGN KEY REFERENCES Estado(Id) NOT NULL,
 	Municipio INT FOREIGN KEY REFERENCES Municipio(Id) NOT NULL,
 );
