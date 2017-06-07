@@ -1,10 +1,10 @@
 ﻿@{
-    Page.Title = "The Host - Hospeds";
+    Page.Title = "The Host - Hospedes";
     Layout = "../../_Layout.cshtml";
 
     var conexao = WebMatrix.Data.Database.Open("DB");
 
-    var hospedes = conexao.Query("select * from HOSPEDE");
+    var hospedes = conexao.Query("select * from Hospede");
 
     conexao.Close();
 
@@ -16,7 +16,8 @@
             <tr>
                 <th>Nome</th>
                 <th>CPF</th>
-                <th>Contato</th>
+                <th>Celular</th>
+                <th>Telefone</th>
             </tr>
         </thead>
         <tbody>
@@ -25,9 +26,9 @@
                 <tr>
                     <td>@h.NOME</td>
                     <td>@h.CPF</td>
+                    <td>@h.Celular</td>
                     <td>@h.TELEFONE</td>
                 </tr>
-
             }
         </tbody>
     </table>
