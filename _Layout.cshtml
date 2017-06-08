@@ -68,6 +68,9 @@
                     <li>
                         <a href="~/pages/quartos/default"><i class="fa fa-fw fa-bed"></i>  QUARTOS </a>
                     </li>
+                    <li>
+                      <a onclick="Open('pages/hospedes/default')">Clique aqui</a>
+                    </li>
                     <!--<li>
                         <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i>  MENU 2 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
                         <ul id="submenu-2" class="collapse">
@@ -93,7 +96,7 @@
         <div id="page-wrapper">
             <div class="container-fluid">
                 <!-- Page Heading -->
-                <div class="row">
+                <div class="row" id="conteudo">
                     @RenderBody()
                 </div>
                 <!-- /.row -->
@@ -134,5 +137,20 @@
     <script src="~/Bootstrap/js/bootstrap-select.min.js"></script>
     <script src="~/Bootstrap/js/i18n/defaults-pt_BR.min.js"></script>
     <script src="~/js/mascara.js"></script>
+    <script>
+    function Open(url) {
+        url = '@Url.Content("~/")' + url;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                $('#conteudo2').html($(response).find('#conteudo'));
+            },
+            error: function () {
+                alert('Ocorreu um erro!');
+            }
+        });
+    }
+</script>
 </body>
 </html>
