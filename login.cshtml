@@ -1,3 +1,8 @@
+@{
+  if(isPost){
+  Response.Redirect("~/pages/");
+  }
+}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/login.css">
 
@@ -11,37 +16,31 @@
               <form id="login-form" action="#" method="post" role="form" style="display: block;">
                 <h2>ENTRAR</h2>
                   <div class="form-group">
-                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Nome de Usuário" value="">
                   </div>
                   <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Senha">
                   </div>
                   <div class="col-xs-6 form-group pull-left checkbox">
                     <input id="checkbox1" type="checkbox" name="remember">
                     <label for="checkbox1">Lembrar Me</label>
                   </div>
                   <div class="col-xs-6 form-group pull-right">
-                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Fazer Login">
                   </div>
               </form>
               <form id="register-form" action="#" method="post" role="form" style="display: none;">
                 <h2>RECUPERAR SENHA</h2>
                   <div class="form-group">
-                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Nome de Usuário" value="">
                   </div>
                   <div class="form-group">
-                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                  </div>
-                  <div class="form-group">
-                    <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
                   </div>
                   <div class="form-group">
                     <div class="row">
                       <div class="col-sm-6 col-sm-offset-3">
-                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                        <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Enviar">
                       </div>
                     </div>
                   </div>
