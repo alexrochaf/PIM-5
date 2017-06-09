@@ -9,10 +9,11 @@ body {
 }
 
 body{
-  background-image: url(/imagens/backgroudLogin/1.jpg);
-  width: 100%;
-  background-size:  100%;
-  background-repeat: no-repeat;
+  background: url(/imagens/backgroudLogin/1.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 @-webkit-keyframes HeroBG {
