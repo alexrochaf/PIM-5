@@ -24,109 +24,41 @@
 
 </head>
 <body>
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!--<a class="navbar-brand" href="http://cijulenlinea.ucr.ac.cr/dev-users/">
-                    <img src="~/imagens/logo.png" alt="LOGO">
-                </a>-->
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-                <li>
-                    <a href="#" data-placement="bottom" data-toggle="tooltip" data-original-title="Stats">
-                        <i class="fa fa-bar-chart-o"></i>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin User <b class="fa fa-angle-down"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fa fa-fw fa-user"></i> Edit Profile</a></li>
-                        <li><a href="#"><i class="fa fa-fw fa-cog"></i> Change Password</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a></li>
-                    </ul>
-                </li>
+    <nav class="navbar navbar-fixed-top navbar-default bg-inverse">
+        <div class="container">
+            <a class="navbar-brand" href="#">The Host</a>
+            <ul class="nav navbar-nav">
+                <li class="nav-item @Page.Home"><a class="nav-link" href="~/pages/">Home</a></li>
+                <li class="nav-item @Page.Hospede"><a class="nav-link" href="~/pages/hospedes/default.cshtml">Hospedes</a></li>
             </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li>
-                        <a href="~/pages/index"><i class="fa fa-fw fa-home"></i>  INICIO </a>
-                    </li>
-                    <li>
-                        <a href="~/pages/hospedes/default"><i class="fa fa-fw fa-user-circle"></i>  HOSPEDES </a>
-                    </li>
-                    <li>
-                        <a href="~/pages/quartos/default"><i class="fa fa-fw fa-bed"></i>  QUARTOS </a>
-                    </li>
-                    <!--<li>
-                        <a href="#" data-toggle="collapse" data-target="#submenu-2"><i class="fa fa-fw fa-star"></i>  MENU 2 <i class="fa fa-fw fa-angle-down pull-right"></i></a>
-                        <ul id="submenu-2" class="collapse">
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.1</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.2</a></li>
-                            <li><a href="#"><i class="fa fa-angle-double-right"></i> SUBMENU 2.3</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="investigaciones/favoritas"><i class="fa fa-fw fa-user-plus"></i>  MENU 3</a>
-                    </li>
-                    <li>
-                        <a href="sugerencias"><i class="fa fa-fw fa-paper-plane-o"></i> MENU 4</a>
-                    </li>
-                    <li>
-                        <a href="faq"><i class="fa fa-fw fa fa-question-circle"></i> MENU 5</a>
-                    </li>-->
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
+        </div><!-- /.container -->
+    </nav><!-- /.navbar -->
 
-        <div id="page-wrapper">
-            <div class="container-fluid">
-                <!-- Page Heading -->
-                <div class="row" id="conteudo">
-                    @RenderBody()
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /#page-wrapper -->
-    </div>
-    <!-- /#wrapper -->
+    <div class="container">
+        @RenderBody()
 
-    <!-- DataTables JavaScript -->
-    <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="~/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="~/vendor/datatables-responsive/dataTables.responsive.js"></script>
+        <hr>
+        <footer>
+            <p>&copy; PIM-5 The Host 2017</p>
+        </footer>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
-
+    </div><!--/.container-->
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
-        $(document).ready(function () {
-            $('#dataTables-example').DataTable({
-                responsive: true,
-                "language": {
-                    "url": "/vendor/datatables/pt-BR.json",
-                    searchPlaceholder: "Buscar: Nome ou CPF",
-                    lengthMenu: "_MENU_",
-                    search: "",
-                    zeroRecords: "Não foi encontrado Hospedes"
-                },
-                "paging": true,
-                "info": false
-            });
+    $(document).ready(function () {
+        $('#dataTables-example').DataTable({
+            responsive: true,
+            "language": {
+                "url": "/vendor/datatables/pt-BR.json",
+                searchPlaceholder: "Buscar: Nome ou CPF",
+                lengthMenu: "_MENU_",
+                search: "",
+                zeroRecords: "Não foi encontrado Hospedes"
+            },
+            "paging": true,
+            "info": false
         });
+    });
     </script>
     <script src="~/Bootstrap/js/bootstrap.min.js"></script>
     <script src="~/js/menu.js"></script>
@@ -134,5 +66,10 @@
     <script src="~/Bootstrap/js/bootstrap-select.min.js"></script>
     <script src="~/Bootstrap/js/i18n/defaults-pt_BR.min.js"></script>
     <script src="~/js/mascara.js"></script>
+    <!-- DataTables JavaScript -->
+    <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="~/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 </body>
 </html>
