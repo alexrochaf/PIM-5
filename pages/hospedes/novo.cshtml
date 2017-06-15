@@ -5,6 +5,7 @@
     //Informações da Página
     Page.Title = "The Host - Novo Hospede";
     Layout = "../../_Layout.cshtml";
+    Page.Hospede = "active";
 
     var tc = "";
 
@@ -53,96 +54,102 @@
     }
 
 }
-<div class="alert catch">@tc</div>
-<form name="form1" data-toggle="validator" role="form" method="post" action="" enctype="multipart/form-data">
-    <div class="panel panel-default">
-        <div class="panel-heading">Dados Pessoais:</div>
-        <div class="panel-body">
-            <div class="form-group has-feedback col-md-5">
-                <label for="inputNome" class="control-label">Nome Completo</label>
-                <input name="nome" type="text" class="form-control uppercase" id="inputNome" placeholder="" data-minlength="9" required>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="inputEmail" class="control-label">Email</label>
-                <input type="email" class="form-control" id="inputEmail" placeholder="exemplo@email.com" required>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group has-feedback col-md-3">
-                <label for="dataNascimento" class="control-label">Data de Nascimento</label>
-                <div class="input-group input-append date">
-                    <input type="text" class="form-control" value="" name="dataNascimento" id="dataNascimento" required/>
-                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+<div class="row">
+    <p class="alert catch">@tc</p>
+    <form name="form1" data-toggle="validator" role="form" method="post" action="" enctype="multipart/form-data">
+        <div class="panel panel-default">
+            <div class="panel-heading">Dados Pessoais:</div>
+            <div class="panel-body">
+                <div class="form-group has-feedback col-md-5">
+                    <label for="inputNome" class="control-label">Nome Completo</label>
+                    <input name="nome" type="text" class="form-control uppercase" id="inputNome" placeholder="" data-minlength="9" required>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="inputEmail" class="control-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" placeholder="exemplo@email.com" required>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback col-md-3">
+                    <label for="dataNascimento" class="control-label">Data de Nascimento</label>
+                    <div class="input-group input-append date">
+                        <input type="text" class="form-control" value="" name="dataNascimento" id="dataNascimento" required />
+                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="inputCelular" class="control-label">Celular</label>
+                    <input type="text" class="form-control" name="celular" id="inputCelular" maxlength="17" onKeyPress="MascaraCelular(form1.inputCelular);" required />
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="inputTelefone" class="control-label">Telefone (Opcional)</label>
+                    <input type="text" class="form-control" name="telefone" id="inputTelefone" maxlength="14" onKeyPress="MascaraTelefone(form1.inputTelefone);" />
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="inputCpf" class="control-label">CPF</label>
+                    <input type="text" class="form-control" name="cpf" id="inputCpf" maxlength="14" onKeyPress="MascaraCPF(form1.inputCpf);" required />
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
             </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="inputCelular" class="control-label">Celular</label>
-                <input type="text" class="form-control" name="celular" id="inputCelular" maxlength="17" onKeyPress="MascaraCelular(form1.inputCelular);" required />
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="inputTelefone" class="control-label">Telefone (Opcional)</label>
-                <input type="text" class="form-control" name="telefone" id="inputTelefone" maxlength="14" onKeyPress="MascaraTelefone(form1.inputTelefone);"/>
-            </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="inputCpf" class="control-label">CPF</label>
-                <input type="text" class="form-control" name="cpf" id="inputCpf" maxlength="14" onKeyPress="MascaraCPF(form1.inputCpf);" required />
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">Endereço:</div>
+            <div class="panel-body">
+                <div class="form-group has-feedback col-md-4">
+                    <label for="cep" class="control-label">Cep</label>
+                    <input type="text" class="form-control" name="cep" id="cep" maxlength="10" onKeyPress="MascaraCep(form1.cep);" required />
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="estado" class="control-label">Estado</label>
+                    <select name="estado" data-live-search="true" id="estado" class="form-control selectpicker" data-error="Selecione um Estado." required>
+                        <option></option>
+                        @foreach (var i in estados)
+                        {
+                            <option data-tokens="@i.nome" value="@i.uf">@i.nome</option>
+                        }
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="cidade" class="control-label">Cidade</label>
+                    <select id="cidade" data-live-search="true" name="cidade" class="selectpicker form-control" required></select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="rua" class="control-label">Rua</label>
+                    <input type="text" class="form-control" name="rua" id="rua" required />
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="numero" class="control-label">Nº</label>
+                    <input type="text" class="form-control" name="numero" id="numero" required />
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="form-group has-feedback col-md-4">
+                    <label for="bairro" class="control-label">Bairro</label>
+                    <input type="text" class="form-control" name="bairro" id="bairro" required />
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">Endereço:</div>
-        <div class="panel-body">
-            <div class="form-group has-feedback col-md-4">
-                <label for="cep" class="control-label">Cep</label>
-                <input type="text" class="form-control" name="cep" id="cep" maxlength="10" onKeyPress="MascaraCep(form1.cep);" required />
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="estado" class="control-label">Estado</label>
-                <select name="estado" data-live-search="true" id="estado" class="form-control selectpicker" data-error="Selecione um Estado." required>
-                    <option></option>
-                    @foreach (var i in estados)
-                    {
-                        <option data-tokens="@i.nome" value="@i.uf">@i.nome</option>
-                    }
-                </select>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="cidade" class="control-label">Cidade</label>
-                <select id="cidade" data-live-search="true" name="cidade" class="selectpicker form-control" required></select>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="rua" class="control-label">Rua</label>
-                <input type="text" class="form-control" name="rua" id="rua" required />
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="numero" class="control-label">Nº</label>
-                <input type="text" class="form-control" name="numero" id="numero" required />
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="form-group has-feedback col-md-4">
-                <label for="bairro" class="control-label">Bairro</label>
-                <input type="text" class="form-control" name="bairro" id="bairro" required />
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
+        <div class="form-group col-md-12">
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="~/pages/hospedes/default.cshtml" class="btn btn-danger">Cancelar</a>
         </div>
-    </div>
-    <div class="form-group col-md-12">
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <a href="~/pages/hospedes" class="btn btn-danger">Cancelar</a>
-    </div>
-</form>
+    </form>
+</div>
+
+@*============== Script do DataPicker ==============*@
 <script>
     $('.date').datepicker({
         language: "pt-BR",
         autoclose: true,
         });
 </script>
+
+@*======== Script de select cidade e estado ======*@
 <script>
     document.querySelector('#estado').addEventListener('change', (event) => {
         var select = event.target;
