@@ -7,84 +7,48 @@
 <div>
     <h1>Cadastro de Quartos</h1>
 </div>
-<form method="post" action="" role="form">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs col-lg-12" role="tablist">
-        <li role="presentation" class="active"><a href="#CadastroQuarto" aria-controls="settings" role="tab" data-toggle="tab">Quarto</a></li>
-        <li role="presentation"><a href="#CadastroTipoQuarto" aria-controls="home" role="tab" data-toggle="tab">Tipo do Quarto</a></li>
-    </ul>
-
-
-    <!-- Tab panes -->
-    <div class="tab-content col-lg-12">
-        <div role="tabpanel" class="tab-pane active" id="CadastroQuarto">
-            <!--Cadastro do Quarto-->
-            <!--Seleciona o tipo do quarto-->
-            <div class="form-group col-lg-6">
-                <label for="tipoQuarto">Tipo do Quarto:</label>
-                <select class="form-control" name="TipoQuarto" id="TipoQuarto" required>
-                    <option></option>
-                    <option value="">Single Room (Solteiro)</option>
-                    <option value="">Twin Room (Solteiro-2)</option>
-                    <option value="">Twin Room (Solteiro-3)</option>
-                    <option value="">Twin Room (Solteiro-4)</option>
-                    <option value="">Double Room (Casal)</option>
-                    <option value="">Double + Single Room (Casal + 1)</option>
-                    <option value="">Double + Twin Room (Casal + 2)</option>
-                </select>
-            </div>
-            <!--Seleciona o número do Quarto-->
-            <div class="form-group col-lg-6">
-                <label for="numQuarto">Nº do Quarto:</label>
-                <input class="form-control" type="number" id="numQuarto" name="numQuarto" min="1" required />
-            </div>
-            <!--Seleciona o andar do Quarto-->
-            <div class="form-group col-lg-12">
-                <label for="numAndar">Nº do Andar:</label>
-                <select class="form-control" name="numAndar" id="numAndar" required>
-                    <option></option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-            </div>
-
-            <div class="form-group col-lg-12">
-                <label for="statusQuarto">Status do Quarto:</label>
-                <input class="form-control" value="Livre" disabled name="statusQuarto" id="statusQuarto" />
-            </div>
-            <div class="form-group col-lg-10">
-                <button type="submit" class="btn btn-success" name="btnSalvarQuarto" id="btnSalvarQuarto">Salvar Quarto</button>
-                <button type="reset" class="btn btn-warning">Limpar Formulário</button>
-            </div>
-        </div>
-
-        <!--Cadastro do tipo do Quarto-->
-        <div role="tabpanel" class="tab-pane" id="CadastroTipoQuarto">
-            <!--Informe a descrição para o Tipo do Quarto-->
-            <div class="form-group col-lg-2">
-                <label for="descTipoQuarto">Descrição do Tipo do Quarto:</label>
-                <input type="text" required name="descTipoQuarto" id="descTipoQuarto" placeholder="Informe a descrição do tipo do Quarto" style="width:300px" />
-                <div>
-                    <br />
-                    <!--Informe o valor do Quarto-->
-                    <label for="valorTiopQuarto">Valor do Quarto:</label>
-                    <input name="valorTiopQuarto" id="valorTiopQuarto" type="text" placeholder="Informe o valor do Quarto" />
-                </div>
-                <div>
-                    <br />
-                    <!--Informe o número de Camas no Quarto-->
-                    <label for="numCamas">Número de Camas no Quarto:</label>
-                    <input type="number" id="numCamas" name="numCamas" min="1" required placeholder="Informe o nº de camas" />
-                </div>
-                <div>
-                    <br />
-                    <button type="submit" class="btn btn-success" name="btnSalvarTipoQuarto" id="btnSalvarTipoQuarto">Salvar</button>
-                    <button type="reset" class="btn btn-warning">Limpar Formulário</button>
-                </div>
-            </div>
-           
-            
-        </div>
+<form data-toggle="validator" role="form" method="post" action="" enctype="multipart/form-data">
+    <div class="form-group has-feedback col-md-6">
+        <!--Seleciona o tipo do quarto-->
+        <label for="tipoQuarto">Tipo do Quarto:</label>
+        <select class="form-control" name="TipoQuarto" id="TipoQuarto" required>
+            <option></option>
+            <option value="1">Single Room (Solteiro)</option>
+            <option value="2">Twin Room (Solteiro-2)</option>
+            <option value="3">Twin Room (Solteiro-3)</option>
+            <option value="4">Twin Room (Solteiro-4)</option>
+            <option value="5">Double Room (Casal)</option>
+            <option value="6">Double + Single Room (Casal + 1)</option>
+            <option value="7">Double + Twin Room (Casal + 2)</option>
+        </select>
+        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
     </div>
+    <!--Seleciona o número do Quarto-->
+    <div class="form-group has-feedback col-md-4">
+            <label for="numQuarto">Nº do Quarto:</label>
+            <input class="form-control uppercase" type="number" id="numQuarto" name="numQuarto" min="1" required />
+        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        
+        <!--Seleciona o andar do Quarto-->
+    <div class="form-group has-feedback col-md-4">
+        <label for="numAndar">Nº do Andar:</label>
+        <select class="form-control uppercase" name="numAndar" id="numAndar" required>
+            <option></option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+        </select>
+        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+    </div>
+
+    <div class="form-group has-feedback col-md-4">
+        <label for="statusQuarto">Status do Quarto:</label>
+        <input class="form-control uppercase" value="Livre" hidden disabled name="statusQuarto" id="statusQuarto" />
+    </div>
+       
+            <button type="submit" class="btn btn-success" name="btnSalvarQuarto" id="btnSalvarQuarto">Salvar Quarto</button>
+            <button type="reset" class="btn btn-warning">Limpar Formulário</button>
+       
+    
 </form>
