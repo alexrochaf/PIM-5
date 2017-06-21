@@ -1,0 +1,59 @@
+﻿@{
+    Page.Title = "The Host - Nova Hospedagem";
+    Layout = "~/_Layout.cshtml";
+    var conexao = WebMatrix.Data.Database.Open("DB");
+
+    var hospedes = conexao.Query("select * from Hospede where Id != @0",Request.QueryString["id"]);
+
+    var hospedeNome = "";
+    var hospedeId = "";
+
+    if (Request.QueryString["id"] != null)
+    {
+        var id = Request.QueryString["id"];
+
+        var resultado = conexao.QuerySingle("select * from Hospede where id=@0",id);
+
+        hospedeNome = resultado.Nome;
+        hospedeId = resultado.Id.ToString();
+
+
+        conexao.Close();
+    }
+    else
+    {
+
+    }
+
+    conexao.Close();
+}
+
+<div>
+    <form>
+        <div class="form-group has-feedback">
+            <label for="hospede" class="control-label">Hospede:</label>
+            <select name="hospede" data-live-search="true" id="hospede" class="form-control selectpicker" data-error="Selecione um Hospede." required>
+                <option data-tokens="@hospedeNome" value="@hospedeId">@hospedeNome</option>
+                @foreach (var i in hospedes)
+                {
+                    <option data-tokens="@i.Nome" value="@i.Id">@i.Nome</option>
+                }
+            </select>
+            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="dtEntrada" class="control-label">Entrada:</label>
+            <div class="input-group input-append date">
+                <input type="text" class="form-control" value="" name="dtEntrada" id="dtEntrada" required />
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="dtSaida" class="control-label">Saída:</label>
+            <div class="input-group input-append date">
+                <input type="text" class="form-control" value="" name="dtSaida" id="dtSaida" required />
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+    </form>
+</div>
