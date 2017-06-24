@@ -1,4 +1,57 @@
 @{ 
     Page.Title = "TheHost - Add Novo Apartamento";
     Layout = "/_Layout.cshtml";
+
+    var conexao = WebMatrix.Data.Database.Open("DB");
+
+    var tipos = conexao.Query("select * from TipoQuarto");
+
+    conexao.Close();
 }
+<div class="row">
+    <div class="jumbotron">
+        <h1>NOVO QUARTO</h1>
+        <p>Preencha todos os campos para adicionar um novo Quarto.</p>
+    </div>
+    <form class="form-horizontal" name="form" data-toggle="validator" role="form" method="post" action="">
+        <div class="form-group has-feedback">
+            <label for="inputStatus" class="control-label col-sm-2"> Situação: </label>
+            <div class="col-sm-3">
+                <input class="form-control" id="inputStatus" type="text" value="Disponivel" disabled>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="inputNumero" class="control-label col-sm-2">Nº Quarto:</label>
+            <div class="col-sm-3">
+                <input name="numero" type="number" class="form-control" id="inputNumero" required>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="inputAndar" class="control-label col-sm-2"> Andar: </label>
+            <div class="col-sm-3">
+                <input name="andar" type="number" class="form-control" id="inputAndar" required>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </div>
+        <div class="form-group has-feedback">
+            <label for="tipo" class="control-label col-sm-2">Tipo:</label>
+            <div class="col-sm-5">
+                <select name="tipo" data-live-search="true" id="tipo" class="form-control selectpicker" data-error="Selecione um Tipo." required>
+                    <option></option>
+                    @foreach (var i in tipos)
+                    {
+                        <option data-tokens="@i.Descricao" value="@i.Id">@i.Descricao</option>
+                    }
+                </select>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

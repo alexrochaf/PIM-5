@@ -1,0 +1,25 @@
+﻿@{
+    Session.Abandon();
+    if (Request.Cookies["Usuario"] != null)
+    {
+        HttpCookie myCookie = new HttpCookie("Usuario");
+        myCookie.Expires = DateTime.Now.AddDays(-1d);
+        Response.Cookies.Add(myCookie);
+    }
+}
+<head>
+    <title>The Host - Logout</title>
+    <link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<div class="flex-align">
+    <div class="container">
+        <div class="jumbotron center"style="margin-top:10em">
+            <h1>The Host, Hospedando melhor!</h1>
+            <a class="btn btn-lg btn-success btn-block btn-signin" href="~/login.cshtml" role="button">Ir para página de Login</a>
+        </div>
+    </div>
+</div>
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/Bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/login.js"></script>
