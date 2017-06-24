@@ -7,7 +7,7 @@
     <meta name="author" content="Alex Rocha,Claudio,Aquinoan">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@Page.Title</title>
-    <link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css" />
     <link href="~/css/menu.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="~/vendor/datatables/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" type="text/css" href="~/css/TheHost.css" />
@@ -21,7 +21,6 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <script src="~/Bootstrap/datetimepicker/js/datetimepicker.js"></script>
     <script src="~/Bootstrap/datetimepicker/js/datetimepicker.pt-BR.min.js"></script>
-
 </head>
 <body>
     <nav class="navbar navbar-fixed-top navbar-default bg-inverse">
@@ -36,29 +35,26 @@
 
     <div class="container">
         @RenderBody()
-
         <hr>
         <footer>
             <p>&copy; PIM-5 The Host 2017</p>
         </footer>
-
-    </div><!--/.container-->
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    </div>
     <script>
-    $(document).ready(function () {
-        $('#dataTables-example').DataTable({
-            responsive: true,
-            "language": {
-                "url": "/vendor/datatables/pt-BR.json",
-                searchPlaceholder: "Buscar: Nome ou CPF",
-                lengthMenu: "_MENU_",
-                search: "",
-                zeroRecords: "Não foi encontrado Hospedes"
-            },
-            "paging": true,
-            "info": false
+        $(document).ready(function () {
+            $('#dataTables-example').DataTable({
+                responsive: true,
+                "language": {
+                    "url": "/vendor/datatables/pt-BR.json",
+                    searchPlaceholder: "Buscar: Nome ou CPF",
+                    lengthMenu: "_MENU_",
+                    search: "",
+                    zeroRecords: "Não foi encontrado Hospedes"
+                },
+                "paging": true,
+                "info": false
+            });
         });
-    });
     </script>
     <script>
         $(document).ready(function () {
@@ -71,6 +67,8 @@
     <script src="~/Bootstrap/js/bootstrap-select.min.js"></script>
     <script src="~/Bootstrap/js/i18n/defaults-pt_BR.min.js"></script>
     <script src="~/js/mascara.js"></script>
+    @*======== Script de select cidade e estado ======*@
+    <script src="~/js/select.js"></script>
     <!-- DataTables JavaScript -->
     <script src="~/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
