@@ -1,36 +1,15 @@
 @{
     Page.Title = "TheHost - Quartos";
     Layout = "/_Layout.cshtml";
+    Page.Quartos = "active"
 
     var conexao = WebMatrix.Data.Database.Open("DB");
 
-    var quartos = conexao.Query("select *, Descricao from QUARTO q inner join TipoQuarto t on t.id = q.tipo");
+    var quartos = conexao.Query("select *, Descricao from QUARTO q inner join TipoQuarto t on t.id = q.tipo_id");
 
     conexao.Close();
 
 }
-@{
-    foreach (var item in quartos)
-    {
-        if (item.estatus == 0)
-        {
-            <div class="col-md-4">
-                <div class="panel panel-success">
-                    <div class="panel-heading">@item.Estatus</div>
-                    <div class="panel-body">
-                        <i class="fa fa-fw fa-star"></i> @item.Descricao
-                    </div>
-                </div>
-            </div>
-        }else{
-          <div class="col-md-4">
-              <div class="panel panel-danger">
-                  <div class="panel-heading">@item.Estatus</div>
-                  <div class="panel-body">
-                      <i class="fa fa-fw fa-star"></i> @item.Descricao
-                  </div>
-              </div>
-          </div>
-        }
-    }
-}
+<div class="raw">
+<a class="btn btn-success" href="~/pages/quartos/novo"></a>
+</div>

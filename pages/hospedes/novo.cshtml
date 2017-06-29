@@ -23,7 +23,7 @@
             var id_estado = conexao.QueryValue("select Id from Estado where Uf = @0",
                 Request.Form["estado"]);
 
-            int resultado = conexao.Execute("INSERT INTO Hospede (Nome, Celular, Telefone, CPF, DataNascimento, Rua, Numero, Complemento, Cep, Bairro, Estado_Id, Municipio_Id) VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11)",
+            int resultado = conexao.Execute("INSERT INTO Hospede (Nome, Celular, Telefone, CPF, DataNascimento, Rua, Numero, Complemento, Cep, Bairro, Estado_Id, Municipio) VALUES (@0, @1, @2, @3, @4, @5, @6, @7, @8, @9, @10, @11)",
                 Request.Form["nome"],
                 Request.Form["celular"],
                 Request.Form["Telefone"],
@@ -147,39 +147,4 @@
         language: "pt-BR",
         autoclose: true,
         });
-</script>
-
-@*======== Script de select cidade e estado ======*@
-<script>
-    document.querySelector('#estado').addEventListener('change', (event) => {
-        var select = event.target;
-
-        var buscaCidades = "/Ajax/cidades?uf=" + select.options[select.selectedIndex].value
-
-        var cidades = [];
-
-        var selectCidades = document.querySelector("#cidade");
-
-        var load = $('.form-control');
-
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                cidades = JSON.parse(this.responseText);
-                var x = document.querySelector("#cidade").options
-                x.length = 0
-
-                for (var i = 0; i < cidades.length; i++) {
-                    var novaOpt = document.createElement("option");
-                    novaOpt.value = cidades[i].Id;
-                    novaOpt.textContent = cidades[i].Nome;
-                    selectCidades.appendChild(novaOpt);
-                }
-
-                load.selectpicker('refresh');
-            }
-        };
-        xmlhttp.open("GET", buscaCidades, true);
-        xmlhttp.send();
-    })
 </script>
