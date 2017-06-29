@@ -3,12 +3,6 @@
     Layout = "~/_Layout.cshtml";
     Page.Quartos = "active";
 
-    //Atributos da Página
-    var buttonText = "Adiconar";
-    if(1 = 1){
-
-    };
-
     var conexao = WebMatrix.Data.Database.Open("DB");
 
     var tipos = conexao.Query("select * from TipoQuarto");
