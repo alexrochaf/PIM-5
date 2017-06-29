@@ -1,6 +1,7 @@
-@{ 
+@{
     Page.Title = "TheHost - Add Novo Apartamento";
     Layout = "/_Layout.cshtml";
+    Page.Quartos = "active"
 
     var conexao = WebMatrix.Data.Database.Open("DB");
 
@@ -15,14 +16,14 @@
     </div>
     <form class="form-horizontal" name="form" data-toggle="validator" role="form" method="post" action="">
         <div class="form-group has-feedback">
-            <label for="inputStatus" class="control-label col-sm-2"> Situação: </label>
+            <label for="inputStatus" class="control-label col-sm-2"> Situaï¿½ï¿½o: </label>
             <div class="col-sm-3">
                 <input class="form-control" id="inputStatus" type="text" value="Disponivel" disabled>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="inputNumero" class="control-label col-sm-2">Nº Quarto:</label>
+            <label for="inputNumero" class="control-label col-sm-2">Nï¿½ Quarto:</label>
             <div class="col-sm-3">
                 <input name="numero" type="number" class="form-control" id="inputNumero" required>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
