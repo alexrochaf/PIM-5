@@ -7,8 +7,6 @@
 
     var hospedes = conexao.Query("select * from Hospede");
 
-    var apto = conexao.Query("select * from Quarto where estatus=0");
-
     conexao.Close();
 
 }
