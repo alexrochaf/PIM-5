@@ -1,29 +1,58 @@
 @{
-    Page.Title = "TheHost - Add Novo Apartamento";
+    //Validações
+    Validation.RequireField("tipo", "Informe o tipo de quarto!");
+
+    //Informações da Página
+    Page.Title = "The Host - Adicionar Quarto";
     Layout = "~/_Layout.cshtml";
     Page.Quartos = "active";
+
+    //Atributos
+    var hotel_nome = Request.Cookies["Usuario"]["Hotel_Nome"];
+    int hotel_id = Convert.ToInt32(Request.Cookies["Usuario"]["Hotel_Id"]);
+    var tc = "";
 
     var conexao = WebMatrix.Data.Database.Open("DB");
 
     var tipos = conexao.Query("select * from TipoQuarto");
 
+    //Salvando IsPost
+    if (IsPost && Validation.IsValid())
+    {
+        try
+        {
+            conexao.Execute("INSERT INTO QUARTO (tipo_id, numero, andar, estatus, hotel_id) VALUES (@0, @1, @2, @3, @4)", Convert.ToInt32(Request.Form["tipo"]), Request.Form["numero"], Request.Form["andar"], Convert.ToInt32(Request.Form["status"]) , hotel_id);
+
+            conexao.Close();
+
+            Response.Redirect("~/");
+        }
+        catch (Exception e)
+        {
+            tc = e.Message;
+        }
+    }
+
+
     conexao.Close();
 }
 <div class="row">
     <div class="jumbotron">
-        <h1>NOVO QUARTO</h1>
+        <h1>ADICIONAR QUARTO</h1>
         <p>Preencha todos os campos para adicionar um novo Quarto.</p>
     </div>
-    <form class="form-horizontal" style="margin-botom:2em" name="form" data-toggle="validator" role="form" method="post" action="">
+    <form class="form-horizontal" name="form" data-toggle="validator" role="form" method="post" action="">
         <div class="form-group has-feedback">
-            <label for="inputStatus" class="control-label col-sm-2"> Situação: </label>
-            <div class="col-sm-3">
-                <input class="form-control" id="inputStatus" type="text" value="Disponivel" disabled>
+            <label for="inputStatus" class="control-label col-sm-2"> Estatus: </label>
+            <div class="col-sm-2">
+                <select id="inputStatus" name="status" class="form-control" disabled>
+                    <option value="0">Disponivel</option>
+                </select>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="inputNumero" class="control-label col-sm-2">Nº Quarto:</label>
+            <label for="inputNumero" class="control-label col-sm-2">Numero do Quarto</label>
             <div class="col-sm-3">
                 <input name="numero" type="number" class="form-control" id="inputNumero" required>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -49,10 +78,22 @@
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
+        <fieldset disabled>
+            <div class="form-group has-feedback">
+                <label for="hotel" class="control-label col-sm-2"> Hotel: </label>
+                <div class="col-sm-3">
+                    <select id="hotel" name="hotel" class="form-control">
+                        <option value="@hotel_id">@hotel_nome</option>
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+        </fieldset>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success">Adicionar</button>
             </div>
         </div>
     </form>
+    <p class="alert catch">@tc</p>
 </div>

@@ -1,20 +1,56 @@
 ﻿@{
-    Page.Title = "TheHost - Inicio";
+    Page.Title = "The Host - Inicio";
     Layout = "../_Layout.cshtml";
     Page.Home = "active";
 
+    //Quantidades
+    int qtdDisponivel = 0;
+    int qtdSaida = 0;
+    int qtdVencidos = 0;
+
     var conexao = WebMatrix.Data.Database.Open("DB");
 
-    var quartos = conexao.Query("select *, Descricao from QUARTO q inner join TipoQuarto t on t.id = q.tipo_id");
+    var disponiveis = conexao.Query("select *,* from QUARTO q inner join TipoQuarto t on t.id = q.tipo_id where q.estatus = 0");
+    foreach (var item in disponiveis)
+    {
+        qtdDisponivel++;
+    }
+    var vencidos = conexao.Query("SELECT *,*, SAIDA FROM QUARTO Q INNER JOIN TIPOQUARTO T ON T.ID = Q.TIPO_ID INNER JOIN HOSPEDAGEN H ON T.ID = H.QUARTO WHERE Q.ESTATUS = 1");
+
+    var saindoHoje = conexao.Query("SELECT *,*, SAIDA FROM QUARTO Q INNER JOIN TIPOQUARTO T ON T.ID = Q.TIPO_ID INNER JOIN HOSPEDAGEN H ON Q.ID = H.QUARTO WHERE Q.ESTATUS = 1");
+    foreach (var item in saindoHoje)
+    {
+        qtdSaida++;
+    }
 
     conexao.Close();
-
 }
 <div class="row">
-    @{
-        foreach (var item in quartos)
-        {
-            if (item.estatus == 0)
+    <div></div>
+    <div class="page-header alert alert-danger">
+        <h1><i class="fa fa-sign-out" aria-hidden="true"></i> Saída (@qtdSaida) <small>hospedagens encerrando hoje</small></h1>
+    </div>
+    <div class="row">
+        @{
+            foreach (var item in saindoHoje)
+            {
+                <div class="col-md-4">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">@item.Estatus</div>
+                        <div class="panel-body">
+                            <i class="fa fa-fw fa-star"></i> @item.Descricao
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="page-header alert alert-success">
+        <h1><i class="fa fa-sign-in" aria-hidden="true"></i> Disponível (@qtdDisponivel) <small>quartos disponíveis</small></h1>
+    </div>
+    <div class="row">
+        @{
+            foreach (var item in disponiveis)
             {
                 <div class="col-md-4">
                     <div class="panel panel-success">
@@ -26,5 +62,5 @@
                 </div>
             }
         }
-    }
+    </div>
 </div>

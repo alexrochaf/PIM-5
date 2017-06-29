@@ -32,7 +32,7 @@ create table TipoQuarto (
 	Descricao varchar(40) not null,
 	Valor decimal not null,
 	Camas int not null,
-	Hotel_Id INT FOREIGN KEY REFERENCES dbo.Hotel(Id) NOT NULL,
+	Hotel_Id INT FOREIGN KEY REFERENCES Hotel(Id) NOT NULL,
 );
 
 
@@ -42,7 +42,7 @@ create table Quarto (
 	Numero int not null,
 	Andar int not null,
 	Estatus int not null,
-	Hotel_Id INT FOREIGN KEY REFERENCES dbo.Hotel(Id) NOT NULL,
+	Hotel_Id INT FOREIGN KEY REFERENCES Hotel(Id) NOT NULL,
 );
 
 create table Hospedagen (
@@ -83,15 +83,3 @@ INSERT INTO TipoQuarto (Descricao, Camas, Valor, Hotel_Id) VALUES ('Twin Room (S
 INSERT INTO TipoQuarto (Descricao, Camas, Valor, Hotel_Id) VALUES ('Double Room (Casal)', 01, 50.00,1)
 INSERT INTO TipoQuarto (Descricao, Camas, Valor, Hotel_Id) VALUES ('Double + Single Room (Casal + 1)', 01, 85.00,1)
 INSERT INTO TipoQuarto (Descricao, Camas, Valor, Hotel_Id) VALUES ('Double + Twin Room (Casal + 2)', 01, 120.00,1)
-
---Inserindo Quartos
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(01 , 01 ,01, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(02 , 01 ,01, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(03 , 01 ,03, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(04 , 01 ,04, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(05 , 01 ,03, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(06 , 02 ,05, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(07 , 02 ,07, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(08 , 02 ,05, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(09 , 02 ,07, 0, 1);
-INSERT INTO QUARTO (NUMERO,ANDAR,Tipo,ESTATUS) VALUES(10 , 02 ,06, 0, 1);

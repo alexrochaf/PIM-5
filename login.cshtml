@@ -1,5 +1,12 @@
 @{
-    if(IsPost){
+    string usuarioSessao = (string)Session["Usuario"];
+
+    if (usuarioSessao != null)
+    {
+        Response.Redirect("/pages");
+    }
+
+    if (IsPost){
         string login;
         string esperado;
 
