@@ -1,15 +1,15 @@
 ﻿@{
     Page.Title = "The Host - Hospedagens";
-    Layout = "~/_Layout.cshtml";
+    Layout = "/_Layout.cshtml";
     Page.Hospedagens = "active";
 
 
     //Selecionando Hospedagens Ativas
-    //var conexao = WebMatrix.Data.Database.Open("DB");
+    var conexao = WebMatrix.Data.Database.Open("DB");
 
-    //var h = conexao.Query("SELECT H.*, C.Nome, Q.Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
+    var h = conexao.Query("SELECT H.*, C.Nome, Q.Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
 
-    //conexao.Close();
+    conexao.Close();
 }
 <div class="row">
   <table class="table table-striped table-bordered table-hover" id="tabela">
