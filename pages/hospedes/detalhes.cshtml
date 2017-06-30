@@ -5,6 +5,7 @@
 
     var Id = Request.QueryString["id"];
     var valor = "";
+    var saida = "";
 
     var conexao = WebMatrix.Data.Database.Open("DB");
     var hospede = conexao.QuerySingle("select * from Hospede where Id = @0", Id);
@@ -61,7 +62,16 @@
                             </td>
                             <td>@h.Quarto</td>
                             <td>@h.Entrada.ToString("dd/MM/yyyy")</td>
-                            <td>@h.Saida.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @if (h.saida != null)
+                                {
+                                    saida = h.Saida.ToString("dd/MM/yyyy");
+                                }
+                                else{
+                                    saida = "";
+                                }
+                                @saida
+                            </td>
                             <td><a class="btn btn-info" role="button"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Detalhes</a></td>
                         </tr>
                     }
@@ -72,17 +82,10 @@
             <form class="form-horizontal">
                 <fieldset disabled>
                     <div class="form-group has-feedback">
-                        <label for="inputEmail" class="control-label col-sm-2">Email:</label>
-                        <div class="col-md-4">
-                            <input type="email" class="form-control" id="inputEmail" placeholder="aquinoan@exemplo.com" required>
-                            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                    <div class="form-group has-feedback">
                         <label for="dataNascimento" class="control-label col-sm-2">Data de Nascimento:</label>
                         <div class="col-sm-2">
                             <div class="input-group input-append date">
-                                <input type="text" class="form-control" value="" name="dataNascimento" id="dataNascimento" required />
+                                <input type="text" class="form-control" value="@hospede.DataNascimento" name="dataNascimento" id="dataNascimento" required />
                                 <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                             </div>
                         </div>

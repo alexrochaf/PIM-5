@@ -39,7 +39,22 @@
 
         try
         {
-            conexao.Query("INSERT INTO HOSPEDAGEN (ENTRADA, SAIDA, ESTATUS, HOSPEDE_ID, QUARTO) VALUES (@0, @1, @2, @3, @4)", DateTime.Now, Request.Form["saida"].AsDateTime(), 0, Request.Form["hospede"], id_quarto);
+            if (Request.Form["saida"].Length > 1)
+            {
+                var tipo = conexao.QuerySingle("SELECT Q.*, T.VALOR FROM QUARTO Q INNER JOIN TIPOQUARTO T ON Q.TIPO_ID = T.ID WHERE Q.ID = @0", id_quarto);
+
+                TimeSpan date = Convert.ToDateTime(DateTime.Now) - Convert.ToDateTime(Request.Form["saida"].AsDateTime());
+
+                int totalDias = date.Days;
+
+                decimal valor = (totalDias * tipo.valor);
+
+                conexao.Query("INSERT INTO HOSPEDAGEN (ENTRADA, SAIDA, ESTATUS, HOSPEDE_ID, QUARTO, VALOR) VALUES (@0, @1, @2, @3, @4, @5)", DateTime.Now, Request.Form["saida"].AsDateTime(), 0, Request.Form["hospede"], id_quarto, valor);
+            }
+            else {
+                conexao.Query("INSERT INTO HOSPEDAGEN (ENTRADA, ESTATUS, HOSPEDE_ID, QUARTO) VALUES (@0, @1, @2, @3)", DateTime.Now, 0, Request.Form["hospede"], id_quarto);
+            }
+
 
             conexao.Query("UPDATE QUARTO SET ESTATUS = 1 WHERE ID = @0", id_quarto);
 

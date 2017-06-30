@@ -7,6 +7,8 @@
     //Selecionando Hospedagens Ativas
     var conexao = WebMatrix.Data.Database.Open("DB");
 
+    var saida = "";
+
     var hospedagens = conexao.Query("SELECT H.*, C.Nome, Q.Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
 
     conexao.Close();
@@ -40,7 +42,17 @@
                         <td>@h.Nome</td>
                         <td>@h.Quarto</td>
                         <td>@h.Entrada.ToString("dd/MM/yyyy")</td>
-                        <td>@h.Saida.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (h.saida != null)
+                            {
+                                saida = h.Saida.ToString("dd/MM/yyyy");
+                            }
+                            else
+                            {
+                                saida = "";
+                            }
+                            @saida
+                        </td>
                         <td><a class="btn btn-info" role="button"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Detalhes</a></td>
                     </tr>
                 }
