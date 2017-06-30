@@ -2,48 +2,44 @@
     Page.Title = "The Host - Hospedagens";
     Layout = "~/_Layout.cshtml";
     Page.Hospedagens = "active";
+
+
+    //Selecionando Hospedagens Ativas
+    var conexao = WebMatrix.Data.Database.Open("DB");
+
+    var h = conexao.Query("SELECT *, Nome, Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
+
+    conexao.Close();
 }
 
 <div class="row">
-  <table id="tabela">
+  <table class="table table-striped table-bordered table-hover" id="tabela">
               <thead>
                   <tr>
-                      <th>Código</th>
-                      <th>Descrição</th>
-                      <th>Grupo</th>
+                      <th>Hospede</th>
+                      <th>Quarto</th>
+                      <th>Entrada</th>
+                      <th>Saída</th>
+                      <th>Ações</th>
                   </tr>
                   <tr>
                       <th><input type="text" id="txtColuna1"/></th>
                       <th><input type="text" id="txtColuna2"/></th>
                       <th><input type="text" id="txtColuna3"/></th>
+                      <th><input type="text" id="txtColuna3"/></th>
                   </tr>
               </thead>
               <tbody>
-                  <tr>
-                      <td>001.01-A</td>
-                      <td>Feijão preto</td>
-                      <td>Cerais</td>
-                  </tr>
-                  <tr>
-                      <td>001.02-B</td>
-                      <td>Feijão branco</td>
-                      <td>Cerais</td>
-                  </tr>
-                  <tr>
-                      <td>002.10-C</td>
-                      <td>Arroz parboilizado</td>
-                      <td>Cerais</td>
-                  </tr>
-                  <tr>
-                      <td>003.12-D</td>
-                      <td>Iogurte de morango</td>
-                      <td>Laticínios</td>
-                  </tr>
-                  <tr>
-                      <td>041.27-E</td>
-                      <td>Sabão em pó</td>
-                      <td>Limpeza</td>
-                  </tr>
+                @foreach (var i in h)
+                {
+                    <tr>
+                        <td>@i.NOME</td>
+                        <td>@i.NUMERO</td>
+                        <td>@i.ENTRADA</td>
+                        <td>@i.SAIDA</td>
+                        <td><a class="btn btn-success" href="~/pages/reservas/nova?id=@h.Id" role="button" data-toggle="tooltip" data-placement="top" title="Nova Hospedagem"><i class="fa fa-tag" aria-hidden="true"></i></a> | <a class="btn btn-info" role="button" data-toggle="tooltip" data-placement="top" title="Detalhes"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> | <a class="btn btn-default" href="#" role="button">Link</a></td>
+                    </tr>
+                }
               </tbody>
           </table>
 </div>
