@@ -7,38 +7,51 @@
         Response.Redirect("/pages");
     }
 
-    if (IsPost){
-        string login;
-        string esperado;
+    var conexao = WebMatrix.Data.Database.Open("DB");
 
-        var conexao = WebMatrix.Data.Database.Open("DB");
-        var usuario = conexao.QuerySingle("select * from Usuario where login = @0",Request.Form["login"]);
-        var hotel = conexao.QuerySingle("select * from Hotel where id = @0", usuario.hotel_id);
+    var tc = "";
 
-        esperado = usuario.login + usuario.senha;
-        login = Request.Form["login"] + Request.Form["senha"];
-
-        if (login.Equals(esperado))
+    try
+    {
+        if (IsPost)
         {
-            HttpCookie cookie = Request.Cookies["Usuario"];
-            if (cookie == null)
+            string login;
+            string esperado;
+
+
+            var usuario = conexao.QuerySingle("select * from Usuario where login = @0", Request.Form["login"]);
+            var hotel = conexao.QuerySingle("select * from Hotel where id = @0", usuario.hotel_id);
+
+            esperado = usuario.login + usuario.senha;
+            login = Request.Form["login"] + Request.Form["senha"];
+
+            if (login.Equals(esperado))
             {
-                cookie = new HttpCookie("Usuario");
-                cookie["Nome"] = usuario.Nome;
-                cookie["Hotel_Id"] = Convert.ToString(usuario.hotel_id);
-                cookie["Login"] = usuario.Login;
-                cookie["Hotel_Nome"] = hotel.Nome;
-                cookie.Expires = DateTime.Now.AddDays(365d);
-                Response.Cookies.Add(cookie);
+                HttpCookie cookie = Request.Cookies["Usuario"];
+                if (cookie == null)
+                {
+                    cookie = new HttpCookie("Usuario");
+                    cookie["Nome"] = usuario.Nome;
+                    cookie["Hotel_Id"] = Convert.ToString(usuario.hotel_id);
+                    cookie["Login"] = usuario.Login;
+                    cookie["Hotel_Nome"] = hotel.Nome;
+                    cookie.Expires = DateTime.Now.AddDays(365d);
+                    Response.Cookies.Add(cookie);
+                }
+
+                Session["Usuario"] = usuario.login;
+                conexao.Close();
+                Response.Redirect("~/pages");
             }
-
-            Session["Usuario"] = usuario.login;
-            conexao.Close();
-            Response.Redirect("~/pages");
         }
-
-        conexao.Close();
     }
+    catch (Exception)
+    {
+
+        tc = "Verifique o usuário e senha!";
+    }
+
+    conexao.Close();
 }
 <head>
     <title>The Host - Login</title>
@@ -46,23 +59,18 @@
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <div class="container">
+    @if (tc.Length != 0)
+    {
+        <p class="alert alert-danger">@tc</p>
+    }
     <div class="card card-container">
         <p id="profile-name" class="profile-name-card"></p>
         <form method="post" class="form-signin">
             <span id="reauth-email" class="reauth-email"></span>
             <input type="text" id="inpotLogin" name="login" class="form-control" placeholder="Usuario" required autofocus>
             <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Senha" required>
-            <div id="remember" class="checkbox">
-                <label>
-                    <input name="check" type="checkbox" value="remember-me"> Lembra-me
-                </label>
-            </div>
             <button class="btn btn-lg btn-success btn-block btn-signin" type="submit">Entrar</button>
-            <a class="btn btn-lg btn-danger btn-block btn-signin">Cadastrar</a>
         </form><!-- /form -->
-        <a href="#" class="forgot-password">
-            Esqueceu sua senha?
-        </a>
     </div><!-- /card-container -->
 </div><!-- /container -->
 

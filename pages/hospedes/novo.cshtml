@@ -1,7 +1,7 @@
 ﻿@{
     //Validações
     Validation.RequireField("nome", "Informe o nome completo!");
-    Validation.Add("dataNascimento", Validator.Range("01/01/1900", DateTime.Now.ToString("dd-MM-yyyy") ,""));
+    Validation.Add("CPF", Validator.StringLength(14, 14, "CPF Inválido"));
 
 
     //Informações da Página
@@ -19,6 +19,11 @@
 
     if (IsPost && Validation.IsValid())
     {
+        if (true)
+        {
+
+        }
+
         var cpf = Request.Form["cpf"];
         var verificaCPF = conexao.QuerySingle("SELECT * FROM HOSPEDE WHERE CPF = '" + cpf + "'");
 
@@ -66,27 +71,31 @@
 
 }
 <div class="row">
+    <div class="jumbotron">
+        <h2>ADICIONAR HOSPEDE</h2>
+        <p>Todos os campos com * são obrigatório.</p>
+    </div>
     @if (tc.Length != 0)
     {
         <p class="alert alert-danger">@tc</p>
     }
     <form class="form-horizontal" name="form1" data-toggle="validator" role="form" method="post" action="" enctype="multipart/form-data">
         <div class="form-group has-feedback">
-            <label for="inputNome" class="control-label col-sm-2">Nome Completo:</label>
+            <label for="inputNome" class="control-label col-sm-2">* Nome Completo:</label>
             <div class="col-sm-4">
                 <input name="nome" type="text" class="form-control" id="inputNome" placeholder="Aquinoan Gomes" data-minlength="9" required>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="inputEmail" class="control-label col-sm-2">Email:</label>
+            <label for="inputEmail" class="control-label col-sm-2">* Email:</label>
             <div class="col-md-4">
                 <input type="email" class="form-control" id="inputEmail" placeholder="aquinoan@exemplo.com" required>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="dataNascimento" class="control-label col-sm-2">Data de Nascimento:</label>
+            <label for="dataNascimento" class="control-label col-sm-2">* Data de Nascimento:</label>
             <div class="col-sm-2">
                 <div class="input-group input-append date">
                     <input type="text" class="form-control" value="" name="dataNascimento" id="dataNascimento" required />
@@ -95,7 +104,7 @@
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="inputCelular" class="col-sm-2 control-label">Celular:</label>
+            <label for="inputCelular" class="col-sm-2 control-label">* Celular:</label>
             <div class="col-sm-3">
                 <input type="text" placeholder="(DDD) 00000-0000" class="form-control" name="celular" id="inputCelular" maxlength="15" minlength="14" onKeyPress="MascaraCelular(form1.inputCelular);" required />
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -108,21 +117,21 @@
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="inputCpf" class="control-label col-sm-2">CPF:</label>
+            <label for="inputCpf" class="control-label col-sm-2">* CPF:</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" name="cpf" id="inputCpf" maxlength="14" minlength="14" onKeyPress="MascaraCPF(form1.inputCpf);" required />
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="cep" class="col-sm-2 control-label">Cep:</label>
+            <label for="cep" class="col-sm-2 control-label">* Cep:</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" name="cep" id="cep" minlength="10" maxlength="10" onKeyPress="MascaraCep(form1.cep);" required />
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="estado" class="col-sm-2 control-label">Estado:</label>
+            <label for="estado" class="col-sm-2 control-label">* Estado:</label>
             <div class="col-sm-4">
                 <select name="estado" data-live-search="true" id="estado" class="form-control selectpicker" data-error="Selecione um Estado." required>
                     <option></option>
@@ -135,35 +144,35 @@
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="cidade" class="col-sm-2 control-label">Cidade:</label>
+            <label for="cidade" class="col-sm-2 control-label">* Cidade:</label>
             <div class="col-sm-6">
                 <select id="cidade" data-live-search="true" name="cidade" class="selectpicker form-control" required></select>
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="bairro" class="col-sm-2 control-label">Bairro:</label>
+            <label for="bairro" class="col-sm-2 control-label">* Bairro:</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control" name="bairro" id="bairro" required />
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="rua" class="col-sm-2 control-label">Rua:</label>
+            <label for="rua" class="col-sm-2 control-label">* Rua:</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control" name="rua" id="rua" required />
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="numero" class="col-sm-2 control-label">Nº da Casa:</label>
+            <label for="numero" class="col-sm-2 control-label">* Nº da Casa:</label>
             <div class="col-sm-2">
                 <input type="text" class="form-control" name="numero" id="numero" required />
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
             </div>   
         </div>
         <div class="form-group has-feedback">
-            <label for="complemento" class="col-sm-2 control-label">Complemento:</label>
+            <label for="complemento" class="col-sm-2 control-label">Complemento (Opcional):</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control" name="complemento" id="complemento" required />
                 <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
@@ -172,7 +181,7 @@
         <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">
                 <button type="submit" class="btn btn-success">Salvar</button>
-                <a href="~/pages/hospedes/default.cshtml" class="btn btn-danger">Cancelar</a>
+                <a href="~/pages/hospedes/default.cshtml" data-toggle="confirmation" data-title="Open Google?" class="btn btn-danger">Cancelar</a>
             </div>
         </div>
     </form>

@@ -1,57 +1,129 @@
 ﻿@{
+    Validation.RequireField("hospede", "o hospede deve ser selecionando");
+    Validation.RequireField("quarto", "o quarto deve ser selecionando");
+
     Page.Title = "The Host - Nova Hospedagem";
     Layout = "~/_Layout.cshtml";
+    Page.Hospedagens = "active";
     var conexao = WebMatrix.Data.Database.Open("DB");
 
-    var hospedes = conexao.Query("select * from Hospede where Id != @0",Request.QueryString["id"]);
+    var hospede = conexao.Query("select * from Hospede");
 
     var hospedeNome = "";
     var hospedeId = "";
+    int hotel_id = Convert.ToInt32(Request.Cookies["Usuario"]["Hotel_Id"]);
+
+    var quartos = conexao.Query("SELECT Q.*, T.Descricao FROM QUARTO Q INNER JOIN TIPOQUARTO T ON T.ID = Q.TIPO_ID WHERE Q.ESTATUS = 0 AND Q.HOTEL_ID = @0", hotel_id);
 
     if (Request.QueryString["id"] != null)
     {
         var id = Request.QueryString["id"];
 
-        var resultado = conexao.QuerySingle("select * from Hospede where id=@0",id);
+        var resultado = conexao.QuerySingle("select * from Hospede where id=@0", id);
 
         hospedeNome = resultado.Nome;
         hospedeId = resultado.Id.ToString();
 
+        hospede = null;
 
         conexao.Close();
     }
     else
     {
-
+        hospede = conexao.Query("select * from Hospede");
     }
+
+    if (IsPost && Validation.IsValid())
+    {
+        int id_quarto = Convert.ToInt32(Request.Form["quarto"]);
+
+        try
+        {
+            conexao.Query("INSERT INTO HOSPEDAGEN (ENTRADA, SAIDA, ESTATUS, HOSPEDE_ID, QUARTO) VALUES (@0, @1, @2, @3, @4)", DateTime.Now, Request.Form["saida"].AsDateTime(), 0, Request.Form["hospede"], id_quarto);
+
+            conexao.Query("UPDATE QUARTO SET ESTATUS = 1 WHERE ID = @0", id_quarto);
+
+            Response.Redirect("~/pages/reservas");
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     conexao.Close();
 }
 
-<div>
-    <form>
+<div class="row">
+    <div class="jumbotron">
+        <h2>NOVA HOSPEDAGEM</h2>
+        <p>Preencha os campos para iniciar uma nova Hospedagem.</p>
+    </div>
+    <form class="form-horizontal" name="form" data-toggle="validator" role="form" method="post" action="">
+        <fieldset disabled>
+            <div class="form-group">
+                <label for="option1" class="control-label col-sm-2">Estatus:</label>
+                <div class="col-sm-3">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-success active">
+                            <input type="radio" name="options" id="option1" value="0" autocomplete="off" checked> Aberta
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
         <div class="form-group has-feedback">
-            <label for="hospede" class="control-label">Hospede:</label>
-            <select name="hospede" data-live-search="true" id="hospede" class="form-control selectpicker" data-error="Selecione um Hospede." required>
-                <option data-tokens="@hospedeNome" value="@hospedeId">@hospedeNome</option>
-                @foreach (var i in hospedes)
-                {
-                    <option data-tokens="@i.Nome" value="@i.Id">@i.Nome</option>
-                }
-            </select>
-            <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <label for="hospede" class="col-sm-2 control-label">* Hospede:</label>
+            <div class="col-sm-6">
+                <select name="hospede" data-live-search="true" id="hospede" class="form-control selectpicker" data-error="Selecione um Hospede." required>
+                    <option data-tokens="@hospedeNome" value="@hospedeId">@hospedeNome</option>
+                    @if (hospede != null)
+                    {
+                        foreach (var i in hospede)
+                        {
+                            <option data-tokens="@i.Nome" value="@i.Id">@i.Nome</option>
+                        }
+                    }
+                </select>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
         </div>
+        <fieldset disabled>
+            <div class="form-group has-feedback">
+                <label for="entrada" class="control-label col-sm-2">* Entrada:</label>
+                <div class="col-sm-2">
+                    <div class="input-group input-append">
+                        <input type="text" class="form-control" value="@DateTime.Now.ToString("dd/MM/yyyy")" name="entrada" id="entrada" required />
+                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
         <div class="form-group has-feedback">
-            <label for="dtEntrada" class="control-label">Entrada:</label>
-            <div class="input-group input-append date">
-                <input type="text" class="form-control" value="" name="dtEntrada" id="dtEntrada" required />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            <label for="saida" class="control-label col-sm-2">Saída (Opcional):</label>
+            <div class="col-sm-2">
+                <div class="input-group input-append date">
+                    <input type="text" class="form-control" value="" name="saida" id="saida" />
+                    <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
             </div>
         </div>
         <div class="form-group has-feedback">
-            <label for="dtSaida" class="control-label">Saída:</label>
-            <div class="input-group input-append date">
-                <input type="text" class="form-control" value="" name="dtSaida" id="dtSaida" required />
-                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            <label for="quarto" class="col-sm-2 control-label">* Quarto:</label>
+            <div class="col-sm-6">
+                <select name="quarto" data-live-search="true" id="quarto" class="form-control selectpicker" data-error="Selecione um Quarto." required>
+                    @foreach (var q in quartos)
+                    {
+                        <option data-tokens="@q.descricao" value="@q.Id">@q.descricao | Numero: @q.numero | Andar: @q.andar</option>
+                    }
+                </select>
+                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a href="~/pages/reservas/" data-toggle="confirmation" data-title="Open Google?" class="btn btn-danger">Cancelar</a>
             </div>
         </div>
     </form>

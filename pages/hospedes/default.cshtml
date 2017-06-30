@@ -28,7 +28,7 @@
                     <td>@h.NOME</td>
                     <td>@h.CPF</td>
                     <td>@h.Celular</td>
-                    <td><a class="btn btn-success" href="~/pages/reservas/nova?id=@h.Id" role="button" data-toggle="tooltip" data-placement="top" title="Nova Hospedagem"><i class="fa fa-tag" aria-hidden="true"></i></a> | <a class="btn btn-info" role="button" data-toggle="tooltip" data-placement="top" title="Detalhes"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> | <a class="btn btn-default" href="#" role="button">Link</a></td>
+                    <td><a class="btn btn-success" href="~/pages/reservas/nova?id=@h.Id" role="button" data-toggle="tooltip" data-placement="top" title="Nova Hospedagem"><i class="fa fa-tag" aria-hidden="true"></i></a> | <a class="btn btn-info" href="~/pages/hospedes/detalhes?id=@h.Id" role="button" data-toggle="tooltip" data-placement="top" title="Detalhes"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a></td>
                 </tr>
             }
         </tbody>

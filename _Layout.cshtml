@@ -42,6 +42,7 @@
     <link rel="stylesheet" type="text/css" href="~/css/hospedes.css" />
     <link rel="stylesheet" type="text/css" href="~/Bootstrap/css/bootstrap-select.min.css">
     <script language="JavaScript" type="text/javascript" src="~/js/mascara.js"></script>
+    <script src="~/Bootstrap/js/bootstrap-confirmation.js"></script>
     <!-- jQuery -->
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <!--=======================BOOTSTRAP-DATETIMEPICKER=========================-->
@@ -149,6 +150,9 @@
         $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
+        $('[data-toggle=confirmation]').confirmation({
+            rootSelector: '[data-toggle=confirmation]',
+        });
     </script>
     <script>
         function logout() {
@@ -177,6 +181,7 @@
         $('.date').datepicker({
             language: "pt-BR",
             autoclose: true,
+            format: 'dd/mm/yyyy',
         });
     </script>
 </body>
