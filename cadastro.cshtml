@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>The Host - Login</title>
+    <link rel="stylesheet" href="~/Bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<div class="container">
+    <div class="card card-container">
+        <p id="profile-name" class="profile-name-card"></p>
+        <form method="post" class="form-signin">
+            <span id="reauth-email" class="reauth-email"></span>
+            <input type="text" id="inpotLogin" name="login" class="form-control" placeholder="Usuario" required autofocus>
+            <input type="password" id="inputPassword" name="senha" class="form-control" placeholder="Senha" required>
+            <button class="btn btn-lg btn-success btn-block btn-signin" type="submit">Salvar</button>
+        </form><!-- /form -->
+        <a href="#" class="forgot-password">
+            Esqueceu sua senha?
+        </a>
+    </div><!-- /card-container -->
+</div><!-- /container -->
+
+<script src="~/vendor/jquery/jquery.min.js"></script>
+<script src="~/Bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/login.js"></script>
