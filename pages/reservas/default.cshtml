@@ -7,7 +7,7 @@
     //Selecionando Hospedagens Ativas
     var conexao = WebMatrix.Data.Database.Open("DB");
 
-    var h = conexao.Query("SELECT *, Nome, Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
+    var h = conexao.Query("SELECT *, Nome, Q.Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
 
     conexao.Close();
 }
