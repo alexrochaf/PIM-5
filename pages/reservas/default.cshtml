@@ -7,7 +7,7 @@
     //Selecionando Hospedagens Ativas
     var conexao = WebMatrix.Data.Database.Open("DB");
 
-    var h = conexao.Query("SELECT *, Nome, Q.Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
+    var h = conexao.Query("SELECT h.*, c.Nome, Q.Numero FROM HOSPEDAGEN H INNER JOIN HOSPEDE C ON H.HOSPEDE_ID = C.ID INNER JOIN QUARTO Q ON H.QUARTO = Q.ID WHERE H.ESTATUS = 0");
 
     conexao.Close();
 }
@@ -34,9 +34,9 @@
                 {
                     <tr>
                         <td>@i.NOME</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>@i.Numero</td>
+                        <td>@i.Entrada</td>
+                        <td>@i.Saida</td>
                         <td><a class="btn btn-success" href="~/pages/reservas/nova?id=@h.Id" role="button" data-toggle="tooltip" data-placement="top" title="Nova Hospedagem"><i class="fa fa-tag" aria-hidden="true"></i></a> | <a class="btn btn-info" role="button" data-toggle="tooltip" data-placement="top" title="Detalhes"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> | <a class="btn btn-default" href="#" role="button">Link</a></td>
                     </tr>
                 }
