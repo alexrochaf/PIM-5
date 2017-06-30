@@ -17,7 +17,7 @@
     }
     var vencidos = conexao.Query("SELECT *,*, SAIDA FROM QUARTO Q INNER JOIN TIPOQUARTO T ON T.ID = Q.TIPO_ID INNER JOIN HOSPEDAGEN H ON T.ID = H.QUARTO WHERE Q.ESTATUS = 1");
 
-    var saindoHoje = conexao.Query("SELECT *,*, SAIDA FROM QUARTO Q INNER JOIN TIPOQUARTO T ON T.ID = Q.TIPO_ID INNER JOIN HOSPEDAGEN H ON Q.ID = H.QUARTO WHERE Q.ESTATUS = 1");
+    var saindoHoje = conexao.Query("SELECT *,*, SAIDA FROM QUARTO Q INNER JOIN TIPOQUARTO T ON T.ID = Q.TIPO_ID INNER JOIN HOSPEDAGEN H ON Q.ID = H.QUARTO WHERE Q.ESTATUS = 1 AND H.SAIDA = @0", DateTime.Now);
     foreach (var item in saindoHoje)
     {
         qtdSaida++;
@@ -36,7 +36,7 @@
             {
                 <div class="col-md-4">
                     <div class="panel panel-danger">
-                        <div class="panel-heading">@item.Estatus</div>
+                        <div class="panel-heading"><i class="fa fa-tag" aria-hidden="true"></i> @item.Numero</div>
                         <div class="panel-body">
                             <i class="fa fa-fw fa-star"></i> @item.Descricao
                         </div>
@@ -54,7 +54,7 @@
             {
                 <div class="col-md-4">
                     <div class="panel panel-success">
-                        <div class="panel-heading">@item.Estatus</div>
+                        <div class="panel-heading"><i class="fa fa-tag" aria-hidden="true"></i> @item.Numero</div>
                         <div class="panel-body">
                             <i class="fa fa-fw fa-star"></i> @item.Descricao
                         </div>
