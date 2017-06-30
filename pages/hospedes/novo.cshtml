@@ -1,6 +1,7 @@
 ﻿@{
     //Validações
     Validation.RequireField("nome", "Informe o nome completo!");
+    Validation.Add("dataNascimento", Validator.Range("01/01/1900", DateTime.Now.ToString("dd-MM-yyyy") ,""));
 
 
     //Informações da Página
