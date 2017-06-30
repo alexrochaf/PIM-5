@@ -22,20 +22,20 @@
                       <th>Ações</th>
                   </tr>
                   <tr>
-                      <th><input type="text" id="txtColuna1"/></th>
-                      <th><input type="text" id="txtColuna2"/></th>
-                      <th><input type="text" id="txtColuna3"/></th>
-                      <th><input type="text" id="txtColuna3"/></th>
+                      <th><input class="form-control" type="text" id="txtColuna1"/></th>
+                      <th><input class="form-control" type="text" id="txtColuna2"/></th>
+                      <th><input class="form-control" type="date" id="txtColuna3"/></th>
+                      <th><input class="form-control" type="date" id="txtColuna3"/></th>
                   </tr>
               </thead>
               <tbody>
-                    <@foreach (var h in hospedagens)
+                    @foreach (var h in hospedagens)
                     {
                         <tr>
                             <td>@h.Nome</td>
                             <td>@h.Quarto</td>
-                            <td>@h.Entrada</td>
-                            <td>@h.Saida</td>
+                            <td>@h.Entrada.ToString("dd/MM/yyyy")</td>
+                            <td>@h.Saida.ToString("dd/MM/yyyy")</td>
                             <td><a class="btn btn-success" href="#" role="button" data-toggle="tooltip" data-placement="top" title="Nova Hospedagem"><i class="fa fa-tag" aria-hidden="true"></i></a> | <a class="btn btn-info" role="button" data-toggle="tooltip" data-placement="top" title="Detalhes"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></a> | <a class="btn btn-default" href="#" role="button">Link</a></td>
                         </tr>
                     }
